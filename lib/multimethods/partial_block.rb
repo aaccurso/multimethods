@@ -6,8 +6,8 @@ class PartialBlock
   end
 
   def matches? (*types_to_match)
-    types_to_match.all? { |type|
-      @types.include? type.class
+    @types == types_to_match.map { |type_to_match|
+      type_to_match.class
     }
   end
 end

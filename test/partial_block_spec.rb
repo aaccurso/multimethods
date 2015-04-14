@@ -16,6 +16,6 @@ describe 'Partial Block' do
 
     expect(helloBlock.matches?("a")).to be_truthy
     expect(helloBlock.matches?(1)).to be_falsey
-    expect(helloBlock.matches?("a", "b")).to be_truthy
+    expect(helloBlock.matches?("a", "b")).to be_falsey
   end
 end
