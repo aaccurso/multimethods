@@ -5,9 +5,11 @@ class PartialBlock
     @block = block
   end
 
-  def matches? (*types_to_match)
-    @types == types_to_match.map { |type_to_match|
-      type_to_match.class
+  def matches? (*arguments)
+    arguments.map { |argument|
+      argument.class.ancestors << argument.class
+    }.each_with_index.all? { |argument_types, index|
+      argument_types.include? @types[index]
     }
   end
 
