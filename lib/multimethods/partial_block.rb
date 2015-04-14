@@ -10,4 +10,8 @@ class PartialBlock
       type_to_match.class
     }
   end
+
+  def call (*arguments)
+    @block.call *arguments
+  end
 end
