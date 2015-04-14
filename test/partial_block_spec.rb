@@ -14,6 +14,10 @@ describe 'Partial Block' do
     @numericIntegerBlock = PartialBlock.new([Numeric, Integer]) do |left, right|
       [left, right]
     end
+
+    @emptyArgumentBlock = PartialBlock.new([]) do
+      3.14
+    end
   end
 
   it 'should raise error if block is not given' do
@@ -43,5 +47,9 @@ describe 'Partial Block' do
 
   it 'should raise error when invalid argument subtypes are provided' do
     expect{ @numericIntegerBlock.call(2.0, 3.0) }.to raise_error
+  end
+
+  it 'should support empty argument types' do
+    expect(@emptyArgumentBlock.call).to eq(3.14)
   end
 end
