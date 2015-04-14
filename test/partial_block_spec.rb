@@ -14,8 +14,8 @@ describe 'Partial Block' do
       "Hello #{who}"
     end
 
-    helloBlock.matches("a") #true
-    helloBlock.matches(1) #false
-    helloBlock.matches("a", "b") #false
+    helloBlock.matches?("a") #true
+    helloBlock.matches?(1) #false
+    helloBlock.matches?("a", "b") #false
   end
 end
