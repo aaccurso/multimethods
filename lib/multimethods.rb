@@ -6,9 +6,9 @@ module Multimethods
     @multimethods ||= {}
     multimethod = @multimethods[method] ||= Multimethod.new
     multimethod.add_method(types, &block)
-    self.send :define_method, method do |*arguments|
+    define_method method do |*arguments|
       multimethod.call *arguments
-    end
+    end unless method_defined? method
   end
 
   def multimethods

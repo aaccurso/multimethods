@@ -18,6 +18,10 @@ describe 'Partial Block' do
     @emptyArgumentBlock = PartialBlock.new([]) do
       3.14
     end
+
+    @stringNumericBlock = PartialBlock.new([String, Numeric]) do |s1, n|
+      s1 * n
+    end
   end
 
   it 'should raise error if block is not given' do
@@ -30,6 +34,7 @@ describe 'Partial Block' do
     expect(@helloBlock.matches?("a")).to be_truthy
     expect(@helloBlock.matches?(1)).to be_falsey
     expect(@helloBlock.matches?("a", "b")).to be_falsey
+    expect(@pairBlock.matches?(1)).to be_falsey
   end
 
   it 'should call partial block with valid arguments' do
@@ -51,5 +56,12 @@ describe 'Partial Block' do
 
   it 'should support empty argument types' do
     expect(@emptyArgumentBlock.call).to eq(3.14)
+  end
+
+  it 'should calculate arguments weight' do
+    expect(@numericIntegerBlock.weight(3.1, 2)).to eq(3)
+    expect(@numericIntegerBlock.weight(3, 2)).to eq(4)
+    expect(@stringNumericBlock.weight('a', 3.1)).to eq(2)
+    expect(@stringNumericBlock.weight('a', 3)).to eq(4)
   end
 end
