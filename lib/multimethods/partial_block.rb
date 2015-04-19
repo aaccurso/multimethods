@@ -14,7 +14,7 @@ class PartialBlock
   end
 
   def call (*arguments)
-    throw 'Invalid arguments' unless self.matches? *arguments
+    throw 'Invalid arguments' unless matches? *arguments
     @block.call *arguments
   end
 end
