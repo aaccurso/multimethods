@@ -6,13 +6,13 @@ class Multimethod
     @partial_blocks << PartialBlock.new(types, &block)
   end
 
-  def call(*arguments)
+  def call(context, *arguments)
     valid_partial_blocks = @partial_blocks.select { |partial_block|
       partial_block.matches? *arguments
     }
     raise ArgumentError if valid_partial_blocks.empty?
     valid_partial_blocks.min_by { |partial_block|
       partial_block.weight *arguments
-    }.call *arguments
+    }.call_with_context(context, *arguments)
   end
 end

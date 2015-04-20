@@ -22,6 +22,10 @@ describe 'Multimethods' do
     partial_def :concat, [Object, Object] do
       'Concatenated Objects'
     end
+
+    partial_def :klass, [] do
+      self.class
+    end
   end
 
   it 'should define concat partial method' do
@@ -47,5 +51,9 @@ describe 'Multimethods' do
     expect(A.new.concat('a', 2)).to eq('a' * 2)
     expect(A.new.concat('a', 3.0)).to eq('a' * 3 * 3)
     expect(A.new.concat(Object.new, 3)).to eq('Concatenated Objects')
+  end
+
+  it 'should bind self to multimethod' do
+    expect(A.new.klass).to be(A)
   end
 end

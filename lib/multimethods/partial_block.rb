@@ -13,15 +13,19 @@ class PartialBlock
     } if arguments.length == @types.length
   end
 
-  def call(*arguments)
-    throw 'Invalid arguments' unless matches? *arguments
-    @block.call *arguments
-  end
-
   def weight(*arguments)
     arguments.zip(@types, 1..(arguments.size + 1))
       .map { |argument, type, index|
         index * argument.class.ancestors.index(type)
       }.inject(:+)
+  end
+
+  def call_with_context(context, *arguments)
+    throw 'Invalid arguments' unless matches? *arguments
+    context.instance_exec(*arguments, &@block)
+  end
+
+  def call(*arguments)
+    call_with_context(self, *arguments)
   end
 end

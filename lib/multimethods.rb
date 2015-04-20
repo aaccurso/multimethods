@@ -7,7 +7,7 @@ module Multimethods
     multimethod = @multimethods[method] ||= Multimethod.new
     multimethod.add_method(types, &block)
     define_method method do |*arguments|
-      multimethod.call *arguments
+      multimethod.call(self, *arguments)
     end unless method_defined? method
   end
 
